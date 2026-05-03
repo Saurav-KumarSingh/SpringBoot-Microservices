@@ -23,7 +23,7 @@ public class PaymentController {
         return List.of("UPI", "Net Banking", "Credit Card", "Debit Card");
     }
 
-    @GetMapping("/netbanking")
+    @PostMapping("/netbanking")
     public String netBanking(@RequestBody NetBankingInfo netBankingInfo) {
 
         logger.info("Request for Net Banking");
