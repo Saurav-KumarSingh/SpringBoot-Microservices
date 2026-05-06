@@ -13,9 +13,9 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>apigateway</artifactId>
-    <name>apigateway</name>
-    <description>API Gateway</description>
+    <artifactId>service-registry</artifactId>
+    <name>service-registry</name>
+    <description>Service Registry (Eureka Server)</description>
 
     <properties>
         <spring-cloud.version>2025.0.2</spring-cloud.version>
@@ -23,14 +23,13 @@
 
     <dependencies>
 
-        <!-- Gateway -->
+        <!-- Eureka Server -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway-server-webmvc</artifactId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
 
-
-
+        <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
