@@ -6,7 +6,9 @@ import microservices.user_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -40,5 +42,18 @@ public class UserService {
                     newUser.setPassword(user.getPassword());
                     return newUser;
                 });
+    }
+
+    public List<UserInformation> getAllUser() {
+        return userRepository.findAll()
+                .stream()
+                .map(user -> {
+                    UserInformation newUser = new UserInformation();
+                    newUser.setName(user.getName());
+                    newUser.setEmail(user.getEmail());
+                    newUser.setPassword(user.getPassword());
+                    return newUser;
+                })
+                .collect(Collectors.toList());
     }
 }

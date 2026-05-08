@@ -5,6 +5,7 @@ import microservices.user_service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -23,5 +24,10 @@ public class UserController {
     public Optional<UserInformation> getUser(@PathVariable String email){
 
         return userService.getUser(email);
+    }
+
+    @GetMapping
+    public List<UserInformation> getAllUser(){
+        return userService.getAllUser();
     }
 }
