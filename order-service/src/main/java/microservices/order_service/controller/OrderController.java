@@ -22,6 +22,11 @@ public class OrderController {
         return orderService.getOrderDetails(orderID);
     }
 
+    @GetMapping("/user")
+    public List<OrderDetails> getUserOrders(@RequestParam String emailId){
+        return orderService.getUserOrders(emailId);
+    }
+
     @GetMapping
     public List<OrderDetails> getAllOrders(){
         return orderService.getAllOrders();

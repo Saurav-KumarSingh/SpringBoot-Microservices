@@ -61,4 +61,19 @@ public class OrderService {
                     return newOrder;
                 }).collect(Collectors.toList());
     }
+
+    public List<OrderDetails> getUserOrders(String emailId) {
+
+        return orderRepository.findByEmailId(emailId)
+                .stream()
+                .map(order -> {
+                    OrderDetails newOrder=new OrderDetails();
+                    newOrder.setOrderId(order.getOrderId());
+                    newOrder.setEmailId(order.getEmailId());
+                    newOrder.setProduct(order.getProduct());
+                    newOrder.setTotalAmount(order.getTotalAmount());
+
+                    return newOrder;
+                }).collect(Collectors.toList());
+    }
 }
