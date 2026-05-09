@@ -6,12 +6,15 @@ import microservices.order_service.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
 public class OrderService {
 
     @Autowired
-    OrderRepository repository;
+    OrderRepository orderRepository;
 
     public String createOrder(OrderDetails orderDetails) {
 
@@ -26,14 +29,14 @@ public class OrderService {
                 .totalAmount(orderDetails.getTotalAmount())
                 .build();
 
-        order = repository.save(order);
+        order = orderRepository.save(order);
 
         return order.getOrderId();
     }
 
     public OrderDetails getOrderDetails(String orderID) {
 
-        Order order = repository.findById(orderID).orElseThrow(() ->
+        Order order = orderRepository.findById(orderID).orElseThrow(() ->
                 new RuntimeException("Order not found"));
 
         return OrderDetails.builder()
@@ -44,4 +47,18 @@ public class OrderService {
                 .build();
     }
 
+    public List<OrderDetails> getAllOrders() {
+
+        return orderRepository.findAll()
+                .stream()
+                .map(order -> {
+                    OrderDetails newOrder=new OrderDetails();
+                    newOrder.setOrderId(order.getOrderId());
+                    newOrder.setEmailId(order.getEmailId());
+                    newOrder.setProduct(order.getProduct());
+                    newOrder.setTotalAmount(order.getTotalAmount());
+
+                    return newOrder;
+                }).collect(Collectors.toList());
+    }
 }

@@ -5,6 +5,8 @@ import microservices.order_service.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class OrderController {
 
@@ -18,5 +20,10 @@ public class OrderController {
     @GetMapping("/details/{orderID}")
     public OrderDetails fetchOrder(@PathVariable String orderID) {
         return orderService.getOrderDetails(orderID);
+    }
+
+    @GetMapping
+    public List<OrderDetails> getAllOrders(){
+        return orderService.getAllOrders();
     }
 }
