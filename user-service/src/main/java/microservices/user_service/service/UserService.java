@@ -5,9 +5,6 @@ import microservices.user_service.Dto.UserInformation;
 import microservices.user_service.entity.User;
 import microservices.user_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -51,7 +47,12 @@ public class UserService {
                     newUser.setEmail(user.getEmail());
                     newUser.setPassword(user.getPassword());
 
-                    String url = "http://localhost:8080/api/order/user?emailId=" + email;
+                    // 🔗 Call order-service with API GATEWAY
+//                    String url = "http://localhost:8080/api/order/user?emailId=" + user.getEmail();
+
+
+//                    without using hostname and port->using service registry name
+                    String url = "http://APIGATEWAY/api/order/user?emailId=" + user.getEmail();
 
                     OrderDto[] response = restTemplate.getForObject(url, OrderDto[].class);
 
@@ -75,8 +76,13 @@ public class UserService {
                     newUser.setEmail(user.getEmail());
                     newUser.setPassword(user.getPassword());
 
-                    // 🔗 Call order-service
-                    String url = "http://localhost:8080/api/order/user?emailId=" + user.getEmail();
+                    // 🔗 Call order-service with API GATEWAY
+//                    String url = "http://localhost:8080/api/order/user?emailId=" + user.getEmail();
+
+
+//                    without using hostname and port->using service registry name
+                    String url = "http://APIGATEWAY/api/order/user?emailId=" + user.getEmail();
+
 
                     OrderDto[] response = restTemplate.getForObject(url, OrderDto[].class);
 
