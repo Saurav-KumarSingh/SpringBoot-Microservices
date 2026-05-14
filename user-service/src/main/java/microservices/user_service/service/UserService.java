@@ -1,5 +1,6 @@
 package microservices.user_service.service;
 
+import external.service.Orderservice;
 import microservices.user_service.Dto.OrderDto;
 import microservices.user_service.Dto.UserInformation;
 import microservices.user_service.entity.User;
@@ -21,6 +22,9 @@ public class UserService {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private Orderservice orderservice;
 
     public String createUser(UserInformation userInformation) {
 
@@ -52,13 +56,18 @@ public class UserService {
 
 
 //                    without using hostname and port->using service registry name
-                    String url = "http://APIGATEWAY/api/order/user?emailId=" + user.getEmail();
+//                    String url = "http://APIGATEWAY/api/order/user?emailId=" + user.getEmail();
+//
+//                    OrderDto[] response = restTemplate.getForObject(url, OrderDto[].class);
+//
+//                    List<OrderDto> orders = response != null
+//                            ? Arrays.asList(response)
+//                            : new ArrayList<>();
+//
+//                    ------------------------------------------
+//                           Feign Client setup
 
-                    OrderDto[] response = restTemplate.getForObject(url, OrderDto[].class);
-
-                    List<OrderDto> orders = response != null
-                            ? Arrays.asList(response)
-                            : new ArrayList<>();
+                    List<OrderDto> orders=orderservice.getOrder(user.getEmail());
 
                     newUser.setOrders(orders);
                     return newUser;
