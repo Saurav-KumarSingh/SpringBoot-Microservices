@@ -39,7 +39,7 @@ public class UserService {
 
         userRepository.save(user);
 
-        return "User created successfully";
+        return "User created successfully!";
     }
 
     public Optional<UserInformation> getUser(String email) {
