@@ -21,6 +21,8 @@
         <module>payment-service</module>
         <module>apigateway</module>
         <module>service-registry</module>
+        <module>config-service</module>
+
     </modules>
 
     <!-- Optional but recommended -->
